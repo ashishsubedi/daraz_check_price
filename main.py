@@ -8,15 +8,20 @@ URL = 'https://www.daraz.com.np/products/xiaomi-poco-f1-6-gb-ram-64-gb-rom-618-i
 fromAddr = 'iamashishsubedi@gmail.com'
 toAddr = 'ashishsubedi10@gmail.com'
 password = 'tfdtzqdnhfibznmi'
+header = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'
+}
 
 def check_price():
-    request = requests.get(URL)
+    request = requests.get(URL, headers=header)
     soup = BeautifulSoup(request.content , 'html.parser')
 
     price = soup.find(class_ = ' pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl').get_text()[3:].strip()
     price = float(price.replace(',',''))
+    print(price)
     if(price< desired_price):
         send_mail()
+        
 
 def send_mail():
     server =  smtplib.SMTP('smtp.gmail.com', 587)
@@ -32,6 +37,7 @@ def send_mail():
     server.quit()
 
 while(True):
-    check_price()
     print("Checking for Price...")
+    check_price()
+    print("Sleeping for 5 hours now...")
     time.sleep(60*60*5) #Checks every 5 hours

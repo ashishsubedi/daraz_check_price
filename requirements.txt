@@ -1,2 +1,2 @@
-requests
-bs4=='4.4.0'
+requests==2.22.0
+bs4==4.4.0
