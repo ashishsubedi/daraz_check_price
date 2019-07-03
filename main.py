@@ -16,11 +16,13 @@ def check_price():
     request = requests.get(URL, headers=header)
     soup = BeautifulSoup(request.content , 'html.parser')
 
-    price = soup.find(class_ = ' pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl').get_text()[3:].strip()
-    price = float(price.replace(',',''))
-    print(price)
-    if(price< desired_price):
-        send_mail()
+    price = soup.find(class_ = ' pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl')
+    if price is not None:
+        price = price.get_text()[3:].strip()
+        price = float(price.replace(',',''))
+        print(price)
+        if(price< desired_price):
+            send_mail()
         
 
 def send_mail():
