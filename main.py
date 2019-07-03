@@ -33,4 +33,5 @@ def send_mail():
 
 while(True):
     check_price()
+    print("Checking for Price...")
     time.sleep(60*60*5) #Checks every 5 hours
